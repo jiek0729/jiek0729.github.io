@@ -35,15 +35,10 @@
 <div ng-controller="MainCtrl" class="container">
     Select smartrac file
     <input type="file" on-read-file="showContent($fileContent)" />
-    <div ng-if="content">
-        <h2>File content is:</h2>
-        <pre>{{ content }}</pre>
-    </div>
-
     <div>
         Enter text
         <br/>
-        <textarea rows="7" cols="50" placeholder="Enter textarea"></textarea>
+        <textarea rows="7" cols="50" placeholder="Enter textarea">{{content}}</textarea>
         <button>OK</button>
     </div>
 </div>
