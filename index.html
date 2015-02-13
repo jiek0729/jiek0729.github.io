@@ -33,11 +33,18 @@
     <ui-gmap-google-map center="map.center" zoom="map.zoom" style="height: 400px; width: 400px"/>
 </div>
 <div ng-controller="MainCtrl" class="container">
-    <p>Select smartrac file</p>
+    Select smartrac file
     <input type="file" on-read-file="showContent($fileContent)" />
     <div ng-if="content">
         <h2>File content is:</h2>
         <pre>{{ content }}</pre>
+    </div>
+
+    <div>
+        Enter text
+        <br/>
+        <textarea rows="7" cols="50" placeholder="Enter textarea"></textarea>
+        <button>OK</button>
     </div>
 </div>
 </body>

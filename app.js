@@ -17,7 +17,7 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
     // uiGmapGoogleMapApi is a promise.
     // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
-      $scope.title = "Hello Google Map"
+      $scope.title = "Smartrac Client"
       $scope.map = {center: {latitude: 51.219053, longitude: 4.404418 }, zoom: 14 };
       //$scope.options = {scrollwheel: false};
     });
