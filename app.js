@@ -4,7 +4,7 @@
 angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
   .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-      key: 'AIzaSyBZ9tilsR9M7eN4cx1FWPDAlunq7SRC6mw',
+      //key: 'AIzaSyBZ9tilsR9M7eN4cx1FWPDAlunq7SRC6mw',
       v: '3.17',
       libraries: 'weather,geometry,visualization'
     });
@@ -18,8 +18,80 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps'])
     // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
       $scope.title = "Smartrac Client"
-      $scope.map = {center: {latitude: 51.219053, longitude: 4.404418 }, zoom: 14 };
-      //$scope.options = {scrollwheel: false};
+      $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 4, bounds: {}};
+      $scope.ps =
+        [{
+          id: 1,
+          path: [
+            {
+              latitude: 45,
+              longitude: -74
+            },
+            {
+              latitude: 30,
+              longitude: -89
+            },
+            {
+              latitude: 37,
+              longitude: -122
+            },
+            {
+              latitude: 60,
+              longitude: -95
+            }
+          ],
+          stroke: {
+            color: '#6060FB',
+            weight: 3
+          },
+          editable: true,
+          draggable: true,
+          geodesic: true,
+          visible: true,
+          icons: [{
+            icon: {
+              path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+            },
+            offset: '25px',
+            repeat: '50px'
+          }]
+        },
+        {
+          id: 2,
+          path: [
+            {
+              latitude: 47,
+              longitude: -74
+            },
+            {
+              latitude: 32,
+              longitude: -89
+            },
+            {
+              latitude: 39,
+              longitude: -122
+            },
+            {
+              latitude: 62,
+              longitude: -95
+            }
+          ],
+          stroke: {
+            color: '#6060FB',
+            weight: 3
+          },
+          editable: true,
+          draggable: true,
+          geodesic: true,
+          visible: true,
+          icons: [{
+            icon: {
+              path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+            },
+            offset: '25px',
+            repeat: '50px'
+          }]
+        }];
     });
 
     $scope.showContent = function($fileContent){

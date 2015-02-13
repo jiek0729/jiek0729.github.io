@@ -30,9 +30,13 @@
 <div>
     <h1>{{title}}</h1>
     <hr/>
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" style="height: 400px; width: 400px"/>
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+        <ui-gmap-polyline ng-repeat = "p in ps" path="p.path" stroke="p.stroke" visible='p.visible'
+                          geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'>
+        </ui-gmap-polyline>
+    </ui-gmap-google-map>
 </div>
-<div ng-controller="MainCtrl" class="container">
+<div ng-controller="MainCtrl">
     Select smartrac file
     <input type="file" on-read-file="showContent($fileContent)" />
     <div>
