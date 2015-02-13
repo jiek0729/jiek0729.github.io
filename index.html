@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myApplicationModule">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Google Map Test</title>
+    <script src='bower_components/angular/angular.min.js'></script>
+    <script src='bower_components/lodash/dist/lodash.min.js'></script>
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+    <script src="app.js"></script>
+
+    <style type="text/css">
+        /*html, body, #map_canvas {*/
+            /*height: 50%;*/
+            /*width: 100%;*/
+            /*margin: 0px;*/
+        /*}*/
+
+        /*#map_canvas {*/
+            /*position: relative;*/
+        /*}*/
+
+        .angular-google-map-container {
+            height: 400px;
+            width: 100%
+        }
+    </style>
+</head>
+<body ng-controller="someController">
+<div>
+    <h1>{{title}}</h1>
+    <hr/>
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" style="height: 400px; width: 400px"/>
+</div>
+<div ng-controller="MainCtrl" class="container">
+    <p>Select smartrac file</p>
+    <input type="file" on-read-file="showContent($fileContent)" />
+    <div ng-if="content">
+        <h2>File content is:</h2>
+        <pre>{{ content }}</pre>
+    </div>
+</div>
+</body>
+</html>
