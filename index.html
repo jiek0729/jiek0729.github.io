@@ -5,8 +5,10 @@
     <title>Google Map Test</title>
     <script src='bower_components/angular/angular.min.js'></script>
     <script src='bower_components/lodash/dist/lodash.min.js'></script>
-    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+    <script src="bower_components/angularjs-google-places/src/angularjs-google-places.js"></script>
+    <script src="model.js"></script>
     <script src="app.js"></script>
 
     <style type="text/css">
@@ -24,27 +26,40 @@
             height: 400px;
             width: 100%
         }
+        #map-canvas { height: 400px; width: 100%; margin: 0; padding: 0;}
     </style>
 </head>
 <body ng-controller="someController">
+<!--<div>-->
+    <!--<h1>{{title}}</h1>-->
+    <!--<hr/>-->
+    <!--<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">-->
+        <!--&lt;!&ndash;<ui-gmap-polyline ng-repeat = "p in ps" path="p.path" stroke="p.stroke" visible='p.visible'&ndash;&gt;-->
+                          <!--&lt;!&ndash;geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'>&ndash;&gt;-->
+        <!--&lt;!&ndash;</ui-gmap-polyline>&ndash;&gt;-->
+        <!--<ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" idkey="marker.id" click="marker.click">-->
+            <!--<ui-gmap-window isIconVisibleOnClick="true">-->
+                <!--<p ng-cloak>{{marker.id}}</p>-->
+            <!--</ui-gmap-window>-->
+        <!--</ui-gmap-marker>-->
+        <!--&lt;!&ndash;<ui-gmap-markers models="markers" coords="'coords'" icon="'icon'">&ndash;&gt;-->
+        <!--&lt;!&ndash;</ui-gmap-markers>&ndash;&gt;-->
+    <!--</ui-gmap-google-map>-->
+<!--</div>-->
+<h1>{{title}}</h1>
+<div id="map-canvas"></div>
 <div>
-    <h1>{{title}}</h1>
-    <hr/>
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
-        <ui-gmap-polyline ng-repeat = "p in ps" path="p.path" stroke="p.stroke" visible='p.visible'
-                          geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'>
-        </ui-gmap-polyline>
-    </ui-gmap-google-map>
-</div>
-<div ng-controller="MainCtrl">
     Select smartrac file
     <input type="file" on-read-file="showContent($fileContent)" />
     <div>
         Enter text
         <br/>
-        <textarea rows="7" cols="50" placeholder="Enter textarea">{{content}}</textarea>
-        <button>OK</button>
+        <textarea rows="7" cols="150" placeholder="Enter textarea" ng-model="content"></textarea>
+        <button ng-click="parse()">OK</button>
     </div>
+</div>
+<div ng-controller="placesCtrl">
+    {{data}}
 </div>
 </body>
 </html>
