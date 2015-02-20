@@ -11,6 +11,19 @@ function station(params) {
   this.city = params[10];
 }
 
+function ReadFile(filepathIncludingFileName) {
+  sr = new File.OpenText(filepathIncludingFileName);
+
+  input = "";
+  while (true) {
+    input += sr.ReadLine() + "\n";
+    if (input == null) { break; }
+  }
+  sr.Close();
+
+  return input;
+}
+
 // Return array of string values, or NULL if CSV string not well formed.
 function CSVtoArray(text) {
   var re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;

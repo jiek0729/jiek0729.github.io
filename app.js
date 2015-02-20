@@ -2,83 +2,20 @@
  * Created by Megagirl on 2/12/15.
  */
 angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
-  .constant("polylines", [{
-    id: 1,
-    path: [
-      {
-        latitude: 45,
-        longitude: -74
-      },
-      {
-        latitude: 30,
-        longitude: -89
-      },
-      {
-        latitude: 37,
-        longitude: -122
-      },
-      {
-        latitude: 60,
-        longitude: -95
-      }
-    ],
-    stroke: {
-      color: '#6060FB',
-      weight: 3
-    },
-    editable: true,
-    draggable: true,
-    geodesic: true,
-    visible: true,
-    icons: [{
-      icon: {
-        path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
-      },
-      offset: '25px',
-      repeat: '50px'
-    }]
-  },
-    {
-      id: 2,
-      path: [
-        {
-          latitude: 47,
-          longitude: -74
-        },
-        {
-          latitude: 32,
-          longitude: -89
-        },
-        {
-          latitude: 39,
-          longitude: -122
-        },
-        {
-          latitude: 62,
-          longitude: -95
-        }
-      ],
-      stroke: {
-        color: '#6060FB',
-        weight: 3
-      },
-      editable: true,
-      draggable: true,
-      geodesic: true,
-      visible: true,
-      icons: [{
-        icon: {
-          path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
-        },
-        offset: '25px',
-        repeat: '50px'
-      }]
-    }])
   .controller("someController", function($scope) {
+    function reqListener () {
+      $scope.parse(this.responseText);
+    }
+
     function initialize() {
       var mapOptions = {center: {lat: 40.1451, lng: -99.6680 }, zoom: 4};
       $scope.map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
+
+      var oReq = new XMLHttpRequest();
+      oReq.onload = reqListener;
+      oReq.open("get", "AllStations.csv", true);
+      oReq.send();
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -86,34 +23,16 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
       $scope.content = $fileContent;
     };
 
-    $scope.markers = []
+    $scope.markers = [];
 
     $scope.showContent = function($fileContent){
       $scope.content = $fileContent;
     };
 
-    $scope.markerHandler = function(){
-      id = parseInt(this.title);
+    $scope.parse = function(content) {
+      content = content.replace(/(\r\n|\n|\r)/gm,"\n");
 
-      var station = $scope.stations[parseInt(this.title)];
-
-      var content = "";
-      for (var property in station) {
-        content += "<hr/>" + property + ": " + station[property];
-      }
-
-      var infowindow = new google.maps.InfoWindow({
-        content: content
-        //content: JSON.stringify(station, null, 2)
-      });
-
-      infowindow.open($scope.map, this);
-      //window.console.log(this);
-    }
-
-    $scope.parse = function() {
-
-      $scope.stations = csvJSON($scope.content);
+      $scope.stations = csvJSON(content);
 
       for(i in $scope.markers) {
         $scope.markers[i].setMap(null);
@@ -132,6 +51,25 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
 
         $scope.markers.push(marker);
       }
+    }
+
+    $scope.markerHandler = function(){
+      id = parseInt(this.title);
+
+      var station = $scope.stations[parseInt(this.title)];
+
+      var content = "";
+      for (var property in station) {
+        content += "<hr/>" + property + ": " + station[property];
+      }
+
+      var infowindow = new google.maps.InfoWindow({
+        content: content
+        //content: JSON.stringify(station, null, 2)
+      });
+
+      infowindow.open($scope.map, this);
+      //window.console.log(this);
     }
   })
   .directive('onReadFile', function ($parse) {
