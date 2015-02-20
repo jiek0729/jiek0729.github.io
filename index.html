@@ -21,12 +21,7 @@
         /*#map_canvas {*/
             /*position: relative;*/
         /*}*/
-
-        .angular-google-map-container {
-            height: 400px;
-            width: 100%
-        }
-        #map-canvas { height: 400px; width: 100%; margin: 0; padding: 0;}
+        #map-canvas { height: 500px; width: 100%; margin: 0; padding: 0;}
     </style>
 </head>
 <body ng-controller="someController">
@@ -46,16 +41,17 @@
         <!--&lt;!&ndash;</ui-gmap-markers>&ndash;&gt;-->
     <!--</ui-gmap-google-map>-->
 <!--</div>-->
-<h1>{{title}}</h1>
+<hr/>
 <div id="map-canvas"></div>
+<hr/>
 <div>
     Select smartrac file
     <input type="file" on-read-file="showContent($fileContent)" />
     <div>
-        Enter text
+        Show stations:
+        <button ng-click="parse(content)">OK</button>
         <br/>
         <textarea rows="7" cols="150" placeholder="Enter textarea" ng-model="content"></textarea>
-        <button ng-click="parse(content)">OK</button>
     </div>
 </div>
 </body>

@@ -3,6 +3,8 @@
  */
 angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
   .controller("someController", function($scope) {
+    $scope.title = "Stations";
+
     function reqListener () {
       $scope.parse(this.responseText);
     }
