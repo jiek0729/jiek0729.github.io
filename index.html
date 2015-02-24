@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Google Map Test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src='bower_components/angular/angular.min.js'></script>
     <script src='bower_components/lodash/dist/lodash.min.js'></script>
     <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
@@ -21,10 +22,35 @@
         /*#map_canvas {*/
             /*position: relative;*/
         /*}*/
-        #map-canvas { height: 500px; width: 100%; margin: 0; padding: 0;}
+        #map-canvas { height: 500px; width: 70%; margin: 0; padding: 0;}
+
+        thead, tbody, tr, td, th { display: block; }
+        tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+        thead th {
+            height: 30px;
+        }
+        tr {
+            width: 100%;
+            display: inline-table;
+        }
+        tbody{
+            overflow-y: scroll;
+            height: 470px;
+        }
+
+        [ng-click],
+        [data-ng-click],
+        [x-ng-click] {
+            cursor: pointer;
+        }
     </style>
 </head>
-<body ng-controller="someController">
+<body ng-controller="someController" class="container">
 <!--<div>-->
     <!--<h1>{{title}}</h1>-->
     <!--<hr/>-->
@@ -42,17 +68,49 @@
     <!--</ui-gmap-google-map>-->
 <!--</div>-->
 <hr/>
-<div id="map-canvas"></div>
-<hr/>
-<div>
-    Select smartrac file
-    <input type="file" on-read-file="showContent($fileContent)" />
-    <div>
-        Show stations:
-        <button ng-click="parse(content)">OK</button>
-        <br/>
-        <textarea rows="7" cols="150" placeholder="Enter textarea" ng-model="content"></textarea>
+<div class="row">
+    <div class="nav navbar-nav navbar-left col-md-3">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <span>station name</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="station in stationList">
+                    <td>
+                        <a data-ng-click="selectStation(station.station_id)">{{station.station_name}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <select ng-model="selectedFilter" ng-change="filterChange()">
+                <option ng-repeat="filter in filters">{{filter}}</option>
+            </select>
+            <select ng-model="selectedFilterValue" ng-change="filter()">
+                <option ng-repeat="value in filterValue">{{value}}</option>
+            </select>
+        </p>
+        <p>
+            <input type="text" ng-model="name">
+            <button ng-click="">ok</button>
+        </p>
     </div>
+    <div class="col-md-9" id="map-canvas"></div>
 </div>
+<hr/>
+<!--<div>-->
+    <!--Select smartrac file-->
+    <!--<input type="file" on-read-file="showContent($fileContent)" />-->
+    <!--<div>-->
+        <!--Show stations:-->
+        <!--<button ng-click="parse(content)">OK</button>-->
+        <!--<br/>-->
+        <!--<textarea rows="7" cols="150" placeholder="Enter textarea" ng-model="content"></textarea>-->
+    <!--</div>-->
+<!--</div>-->
 </body>
 </html>
