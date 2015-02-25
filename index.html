@@ -22,15 +22,11 @@
         /*#map_canvas {*/
             /*position: relative;*/
         /*}*/
-        #map-canvas { height: 500px; width: 70%; margin: 0; padding: 0;}
+        #map-canvas { height: 500px;}
+        #wrapper { position: relative;}
+        #over_map { position: absolute; top: 10px; left: 30px; z-index: 99; }
 
         thead, tbody, tr, td, th { display: block; }
-        tr:after {
-            content: ' ';
-            display: block;
-            visibility: hidden;
-            clear: both;
-        }
         thead th {
             height: 30px;
         }
@@ -68,8 +64,18 @@
     <!--</ui-gmap-google-map>-->
 <!--</div>-->
 <hr/>
+<div>
+    <p>
+        <select ng-model="selectedFilter" ng-change="filterChange()">
+            <option ng-repeat="filter in filters">{{filter}}</option>
+        </select>
+        <select ng-model="selectedFilterValue" ng-change="filter()">
+            <option ng-repeat="value in filterValue">{{value}}</option>
+        </select>
+    </p>
+</div>
 <div class="row">
-    <div class="nav navbar-nav navbar-left col-md-3">
+    <div class="nav navbar-nav navbar-left col-md-2">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -86,20 +92,25 @@
                 </tr>
             </tbody>
         </table>
-        <p>
-            <select ng-model="selectedFilter" ng-change="filterChange()">
-                <option ng-repeat="filter in filters">{{filter}}</option>
-            </select>
-            <select ng-model="selectedFilterValue" ng-change="filter()">
-                <option ng-repeat="value in filterValue">{{value}}</option>
-            </select>
-        </p>
-        <p>
-            <input type="text" ng-model="name">
-            <button ng-click="">ok</button>
-        </p>
     </div>
-    <div class="col-md-9" id="map-canvas"></div>
+    <div class="col-md-10" id="wrapper">
+        <div id="map-canvas"></div>
+        <div id="over_map" style="outline: 1px solid #adadad; background-color: #ffffff; width: 200px" ng-model="station_detail">
+            station: {{station_detail.station_name}}<br/>
+            system: {{station_detail.system}}<br/>
+            mode: {{station_detail.mode}}<br/>
+            line: {{station_detail.line}}<br/>
+            region: {{station_detail.region}}<br/>
+            state: {{station_detail.state}}<br/>
+            city: {{station_detail.city}}<br/>
+        </div>
+    </div>
+</div>
+<div>
+    <p>
+        <input type="text" ng-model="name">
+        <button ng-click="" style="alignment: right">ok</button>
+    </p>
 </div>
 <hr/>
 <!--<div>-->

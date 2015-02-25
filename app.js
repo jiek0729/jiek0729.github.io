@@ -20,7 +20,7 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
     }
 
     function initialize() {
-      var mapOptions = {center: {lat: 40.1451, lng: -99.6680 }, zoom: 4};
+      var mapOptions = {center: {lat: 40.1451, lng: -99.6680 }, zoom: 4, zoomControl: false, streetViewControl: false};
       $scope.map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
 
@@ -80,28 +80,38 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
     }
 
     $scope.markerHandler = function(){
-      var station = $scope.stations[parseInt(this.title)];
+      $scope.selectStation(parseInt(this.title));
 
-      var content = "";
-      for (var property in station) {
-        content += property + ": " + station[property] + "<br/>";
-      }
-
-      var infowindow = new google.maps.InfoWindow({
-        content: content
-        //content: JSON.stringify(station, null, 2)
-      });
-
-      //infowindow.open($scope.map);
-      //window.console.log(this);
-      $scope.selectedStationName = station.station_name;
+      $scope.$apply();
     }
 
+    var prevInfo = null;
+
     $scope.selectStation = function(id) {
+      if(prevInfo !== null) {
+        prevInfo.close();
+      }
+
       var station = $scope.stations[id];
+
+      $scope.station_detail = station;
 
       $scope.map.setZoom(17);
       $scope.map.panTo($scope.markers[id].position);
+
+      var content = "<button onclick='alert(\"I am an alert\")'>click</button>";
+
+      var infowindow = new google.maps.InfoWindow({
+          content: content
+        });
+
+      infowindow.open($scope.map, $scope.markers[id]);
+
+      prevInfo = infowindow;
+    }
+
+    $scope.showAlert = function() {
+      alert("I am an alert");
     }
 
     $scope.filterChange = function() {
