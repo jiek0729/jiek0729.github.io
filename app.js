@@ -93,9 +93,11 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
     }
 
     var prevInfo = null;
+    var prevMarker = null;
 
     $scope.selectStation = function(id) {
       if(prevInfo !== null) {
+        prevMarker.setAnimation(null);
         prevInfo.close();
       }
 
@@ -105,8 +107,9 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
 
       $scope.map.panTo($scope.markers[id].position);
       $scope.map.setZoom(17);
+      $scope.markers[id].setAnimation(google.maps.Animation.BOUNCE);
 
-      var content = "<button onclick='alert(\"I am an alert\")'>click</button>";
+      var content = "<button onclick='alert(\"I am an alert\")'>hi</button>";
 
       var infowindow = new google.maps.InfoWindow({
           content: content
@@ -115,6 +118,7 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
       infowindow.open($scope.map, $scope.markers[id]);
 
       prevInfo = infowindow;
+      prevMarker = $scope.markers[id];
       $scope.checked = true;
     }
 
