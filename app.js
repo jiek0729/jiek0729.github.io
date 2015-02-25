@@ -14,15 +14,22 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
     $scope.selectedFilter = '--select--';
     $scope.selectedFilterValue = '--select--';
     $scope.stationList = {};
+    $scope.checked = false;
 
     function reqListener () {
       $scope.parse(this.responseText);
     }
 
     function initialize() {
-      var mapOptions = {center: {lat: 40.1451, lng: -99.6680 }, zoom: 4, zoomControl: false, streetViewControl: false};
+      var mapOptions = {center: {lat: 40.1451, lng: -99.6680 }, zoom: 4, disableDefaultUI: true};
       $scope.map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
+
+      google.maps.event.addListener($scope.map, 'click', function() {
+        $scope.checked = false;
+
+        $scope.$apply();
+      });
 
       var oReq = new XMLHttpRequest();
       oReq.onload = reqListener;
@@ -96,8 +103,8 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
 
       $scope.station_detail = station;
 
-      $scope.map.setZoom(17);
       $scope.map.panTo($scope.markers[id].position);
+      $scope.map.setZoom(17);
 
       var content = "<button onclick='alert(\"I am an alert\")'>click</button>";
 
@@ -108,6 +115,7 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
       infowindow.open($scope.map, $scope.markers[id]);
 
       prevInfo = infowindow;
+      $scope.checked = true;
     }
 
     $scope.showAlert = function() {
