@@ -124,7 +124,7 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
         $scope.stationList = $scope.stations;
 
         for (var id in $scope.markers) {
-          $scope.markers[id].setMap($scope.map);
+          //$scope.markers[id].setMap($scope.map);
           bounds.extend($scope.markers[id].position);
         }
 
@@ -139,7 +139,7 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
             $scope.markers[id].setMap($scope.map);
             bounds.extend($scope.markers[id].position);
           } else {
-            $scope.markers[id].setMap(null);
+            //$scope.markers[id].setMap(null);
           }
         }
       }
