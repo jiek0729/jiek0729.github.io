@@ -68,8 +68,8 @@ angular.module('myApplicationModule', ['uiGmapgoogle-maps', 'ngGPlaces'])
         if($scope.regions.indexOf(station.region) == -1){
           $scope.regions.push(station.region);
         }
-        if($scope.cities.indexOf(station.region) == -1){
-          $scope.cities.push(station.region);
+        if($scope.cities.indexOf(station.city) == -1){
+          $scope.cities.push(station.city);
         }
 
         var marker = new google.maps.Marker({
