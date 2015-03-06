@@ -27,6 +27,11 @@
         #over_map { position: absolute; top: 10px; left: 30px; z-index: 99; }
 
         thead, tbody, tr, td, th { display: block; }
+
+        table {
+            width: 100%
+        }
+
         thead th {
             height: 30px;
         }
@@ -90,9 +95,9 @@
     </p>
 </div>
 <div class="row">
-    <div class="nav navbar-nav navbar-left col-md-2">
-        <table class="table table-striped">
-            <thead>
+    <div class="col-md-2 list-group">
+        <table>
+            <thead class="list-group-item active">
                 <tr>
                     <th>
                         <span>station name</span>
@@ -100,7 +105,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="station in stationList">
+                <tr ng-repeat="station in stationList" class="list-group-item">
                     <td>
                         <a data-ng-click="selectStation(station.station_id)">{{station.station_name}}</a>
                     </td>
